@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:h="http://java.sun.com/jsf/html"
+     	xmlns:f="http://java.sun.com/jsf/core"
+     	xmlns:ui="http://java.sun.com/jsf/facelets" 
+     	xmlns:p="http://primefaces.org/ui"
+		template="/WEB-INF/templates/imo_mini_page_template.xhtml">
+
+	<ui:define name="titulo_secao">Publicação de Vaga</ui:define>
+	
+	<ui:define name="conteudo_secao">
+	
+		<div class="contact_form">
+		
+			<h:form id="form_vaga">
+			
+				<h:panelGroup id="panel_select_cargo_vaga">
+					<p:outputLabel value="Cargo" for="select_cargo_vaga"/>
+					<p:selectOneMenu id="select_cargo_vaga" value="#{vagaBean.novaVaga.cargo.codigo}">
+						<f:selectItem itemLabel="Selecione o cargo" itemValue="#{null}"/>
+						<f:selectItems value="#{vagaBean.listaSelectCargos}"/>
+					</p:selectOneMenu>
+					<div class="margin_bottom_10"/>
+				</h:panelGroup>
+
+				<h:panelGroup id="panel_novo_cargo_vaga" style="display:none">
+					<p:outputLabel value="Novo Cargo" for="input_novo_cargo_vaga"/>
+					<p:inputText value="#{vagaBean.novaVaga.cargo.nome}" styleClass="input_field" 
+					id="input_novo_cargo_vaga" maxlength="30"/>
+					<div class="margin_bottom_10"/>
+				</h:panelGroup>
+									
+				<p:outputLabel value="Novo Cargo" for="check_novo_cargo_vaga"/>
+				<h:selectBooleanCheckbox onclick="toggleCargo()"  id="check_novo_cargo_vaga" value="#{vagaBean.indicadorNovoCargo}"/>
+				<div class="margin_bottom_10"/>
+				
+				<p:outputLabel value="Escolaridade" for="escolaridade_vaga"/>
+				<p:selectOneMenu id="escolaridade_vaga" value="#{vagaBean.novaVaga.escolaridade.codigo}" 
+					required="true" requiredMessage="Campo Escolaridade obrigatório">
+					<f:selectItem itemLabel="Selecione a escolaridade" itemValue="#{null}"/>
+					<f:selectItems value="#{vagaBean.listaSelectEscolaridade}"/>
+				</p:selectOneMenu>
+				<div class="margin_bottom_10"/>
+				
+				<p:outputLabel value="Quantidade de Postos" for="qtd_postos_vaga"/>
+				<p:inputText id="qtd_postos_vaga" value="#{vagaBean.novaVaga.numeroPostos}" 
+					maxlength="3" styleClass="input_field" style="width: 30px;" required="true" requiredMessage="Campo Qtd. Postos obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Meses de Experiência" for="meses_exp_vaga"/>
+				<p:inputText id="meses_exp_vaga" value="#{vagaBean.novaVaga.mesesExperiencia}" 
+					maxlength="3" styleClass="input_field" style="width: 30px;" required="true" requiredMessage="Campo Meses de Experiência obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Usuário" for="user_emp_vaga"/>
+				<p:inputText id="user_emp_vaga" value="#{vagaBean.novaVaga.empregador.usuario}" maxlength="8" 
+					style="width: 80px;" styleClass="input_field" required="true" requiredMessage="Campo Usuário obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Senha" for="senha_emp_vaga"/>
+				<p:password id="senha_emp_vaga" value="#{vagaBean.novaVaga.empregador.senha}" maxlength="6" styleClass="input_field" 
+					style="width: 80px;" required="true" requiredMessage="Campo Senha obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:commandButton actionListener="#{vagaBean.cadastrarVaga}" ajax="false" value="Cadastrar" update="form_vaga"/>
+				<p:commandButton value="Cancelar" type="reset" />
+				
+				<p:messages/>
+				
+			</h:form>
+			
+		</div>
+	
+	</ui:define>
+	
+</ui:composition>

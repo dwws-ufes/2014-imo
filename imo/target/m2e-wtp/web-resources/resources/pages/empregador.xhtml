@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:h="http://java.sun.com/jsf/html"
+     	xmlns:f="http://java.sun.com/jsf/core"
+     	xmlns:ui="http://java.sun.com/jsf/facelets"
+     	xmlns:p="http://primefaces.org/ui" 
+	template="/WEB-INF/templates/imo_mini_page_template.xhtml">
+
+	<ui:define name="titulo_secao">Cadastro de Empregador</ui:define>
+	
+	<ui:define name="conteudo_secao">
+	
+		<div class="contact_form">
+		
+			<h:form id="form_emp">
+				
+				<p:outputLabel value="Razão Social" for="nome_emp"/>
+				<p:inputText id="nome_emp" value="#{empregadorBean.empregador.razaoSocial}" 
+					maxlength="100" styleClass="input_field" required="true" requiredMessage="Campo Razão Social obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="CNPJ" for="cnpj_emp"/>
+				<p:inputMask mask="99.999.999/9999-99" id="cnpj_emp" value="#{empregadorBean.empregador.cnpj}" 
+					styleClass="input_field" required="true" requiredMessage="Campo CNPJ obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Email" for="email_emp"/>
+				<p:inputText id="email_emp" value="#{empregadorBean.empregador.email}" 
+					maxlength="50" styleClass="input_field" required="true" requiredMessage="Campo Email obrigatório"/>
+				<div class="margin_bottom_10"></div>
+			
+				<p:outputLabel value="Usuário" for="user_emp"/>
+				<p:inputText id="user_emp" value="#{empregadorBean.empregador.usuario}" 
+					maxlength="8" styleClass="input_field" required="true" requiredMessage="Campo Usuário obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Senha" for="senha_emp"/>
+				<p:password id="senha_emp" value="#{empregadorBean.empregador.senha}" maxlength="6" styleClass="input_field" 
+					style="width: 60px;" required="true" requiredMessage="Campo Senha obrigatório">
+					<f:validator validatorId="passwordValidator"/>
+					<f:attribute name="confirm" value="#{senha_confirma_emp}"/>
+				</p:password>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Confirma Senha" for="senha_confirma_emp"/>
+				<p:password id="senha_confirma_emp" binding="#{senha_confirma_emp}" maxlength="6" 
+					style="width: 60px;" styleClass="input_field" required="true" requiredMessage="Campo Confirma Senha obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:commandButton actionListener="#{empregadorBean.cadastrarEmpregador}" ajax="false" value="Cadastrar" update="form_emp"/>
+				<p:commandButton value="Cancelar" type="reset"  />
+				
+				<p:messages/>
+				
+			</h:form>
+			
+		</div>
+	
+	</ui:define>
+	
+</ui:composition>

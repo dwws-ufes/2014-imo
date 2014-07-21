@@ -1,0 +1,39 @@
+@CHARSET "ISO-8859-1";
+table.vaga {
+    width: 100%;
+    border-collapse: collapse; /* so we can control cellspacing in a practical way */
+    border-bottom: 1px solid #000;
+}
+ 
+table.vaga th,
+table.vaga td {
+    padding: 5px;
+    text-align: left;
+    font-family: Arial, Verdana, sans-serif;
+    border: 1px solid #000; /* let's apply borders */
+    border-bottom:0;
+}
+ 
+ 
+table.vaga th {
+    background-color: #ddd;
+    color: #BB0000;
+    border-bottom: 2px solid #000;
+}
+ 
+table.vaga tr.odd {
+    background-color: #DDFFFF;
+}
+ 
+table.vaga tr.odd td {
+    border-top: 1px solid #ccc;
+}
+ 
+table.vaga tr.even {
+    background-color: #FBFBFB;
+}
+ 
+table.vaga tr.even td {
+    border-top: 1px solid #BBEEEE;
+}
+

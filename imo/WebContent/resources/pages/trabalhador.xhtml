@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:h="http://java.sun.com/jsf/html"
+     	xmlns:f="http://java.sun.com/jsf/core"
+     	xmlns:ui="http://java.sun.com/jsf/facelets"
+     	xmlns:p="http://primefaces.org/ui"
+		template="/WEB-INF/templates/imo_mini_page_template.xhtml">
+
+	<ui:define name="titulo_secao">Cadastro de Trabalhador</ui:define>
+	
+	<ui:define name="conteudo_secao">
+	
+		<div class="contact_form">
+		
+			<h:form id="form_trab">
+				
+				<p:outputLabel value="Nome" for="nome_trab"/>
+				<p:inputText id="nome_trab" value="#{trabalhadorBean.trabalhador.nome}" 
+					maxlength="100" styleClass="input_field" required="true" requiredMessage="Campo Nome obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Sobrenome" for="sobrenome_trab"/>
+				<p:inputText id="sobrenome_trab" value="#{trabalhadorBean.trabalhador.sobrenome}" 
+					maxlength="100" styleClass="input_field" required="true" requiredMessage="Campo Sobrenome obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Dt. Nasc." for="nascimento_trab"/>
+				<p:calendar id="nascimento_trab" value="#{trabalhadorBean.trabalhador.dataNascimento}" 
+					maxlength="100" styleClass="input_field" required="true" requiredMessage="Campo Dt. Nasc. obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="CPF" for="cpf_trab"/>
+				<p:inputMask mask="999.999.999-99" id="cpf_trab" value="#{trabalhadorBean.trabalhador.cpf}" 
+					styleClass="input_field" required="true" requiredMessage="Campo CPF obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Escolaridade" for="escolaridade_trab"/>
+				<p:selectOneMenu id="escolaridade_trab" value="#{trabalhadorBean.trabalhador.escolaridade.codigo}" 
+					required="true" requiredMessage="Campo Escolaridade obrigatório">
+					<f:selectItem itemLabel="Selecione a escolaridade" itemValue="#{null}"/>
+					<f:selectItems value="#{trabalhadorBean.listaSelectEscolaridade}"/>
+				</p:selectOneMenu>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Email" for="email_trab"/>
+				<p:inputText id="email_trab" value="#{trabalhadorBean.trabalhador.email}" 
+					maxlength="50" styleClass="input_field" required="true" requiredMessage="Campo Email obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Telefone" for="telefone_trab"/>
+				<p:inputMask mask="999-999-999" id="telefone_trab" value="#{trabalhadorBean.trabalhador.telefone}" 
+					styleClass="input_field" required="true" requiredMessage="Campo Telefone obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Endereço" for="endereco_trab"/>
+				<p:inputText id="endereco_trab" value="#{trabalhadorBean.trabalhador.endereco}" maxlength="300" 
+					styleClass="input_field" required="true" requiredMessage="Campo Endereco obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Cidade" for="cidade_trab"/>
+				<p:inputText id="cidade_trab" value="#{trabalhadorBean.trabalhador.cidade}" maxlength="50" 
+					styleClass="input_field" required="true" requiredMessage="Campo Cidade obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Estado" for="estado_trab"/>
+				<p:selectOneMenu id="estado_trab" value="#{trabalhadorBean.trabalhador.estado}" 
+					required="true" requiredMessage="Campo Estado obrigatório">
+					<f:selectItem itemLabel="Selecione o estado" itemValue="#{null}"/>
+					<f:selectItems value="#{trabalhadorBean.listaEstados}"/>
+				</p:selectOneMenu>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Usuário" for="user_trab"/>
+				<p:inputText id="user_trab" value="#{trabalhadorBean.trabalhador.usuario}" 
+					maxlength="8" styleClass="input_field" required="true" requiredMessage="Campo Usuário obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Senha" for="senha_trab"/>
+				<p:password id="senha_trab" value="#{trabalhadorBean.trabalhador.senha}" maxlength="6" styleClass="input_field" 
+					style="width: 60px;" required="true" requiredMessage="Campo Senha obrigatório">
+					<f:validator validatorId="passwordValidator"/>
+					<f:attribute name="confirm" value="#{senha_confirma_trab}"/>
+				</p:password>
+				<div class="margin_bottom_10"></div>
+				
+				<p:outputLabel value="Confirma Senha" for="senha_confirma_trab"/>
+				<p:password id="senha_confirma_trab" binding="#{senha_confirma_trab}" maxlength="6" 
+					style="width: 60px;" styleClass="input_field" required="true" requiredMessage="Campo Confirma Senha obrigatório"/>
+				<div class="margin_bottom_10"></div>
+				
+				<p:commandButton actionListener="#{trabalhadorBean.cadastrarTrabalhador}" ajax="false" value="Cadastrar" update="form_trab"/>
+				<p:commandButton value="Cancelar" type="reset" />
+			
+				<p:messages/>
+					
+			</h:form>
+			
+		</div>
+	
+	</ui:define>
+	
+</ui:composition>
