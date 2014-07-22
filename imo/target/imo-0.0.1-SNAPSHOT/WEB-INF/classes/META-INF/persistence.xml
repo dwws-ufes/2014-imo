@@ -3,7 +3,6 @@
 	<persistence-unit name="imo" transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/imoDS</jta-data-source>
-		<class>com.dwws.imo.modelo.Empregador</class>
 		<properties>
         	<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
          	<property name="hibernate.hbm2ddl.auto" value="update"/>

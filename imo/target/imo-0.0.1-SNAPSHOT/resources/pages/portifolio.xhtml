@@ -114,6 +114,14 @@
 					<p:messages/>
 				
 				</h:form>
+				
+				<h:form id="form_descricao_cargo">
+					<p:commandButton value="Buscar Descrição do Cargo" update="texto_descricao_cargo" 
+						actionListener="#{vagaBean.buscarDescricaoCargo()}" process="@this"/>
+					<p:outputLabel value="Descrição"/>
+					<p:inputTextarea rows="5" cols="33" id="texto_descricao_cargo" value="#{vagaBean.descricaoCargo}"/>
+					<p:messages/>
+				</h:form>
 					
 			</div>
 		

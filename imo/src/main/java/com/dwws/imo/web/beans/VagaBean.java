@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
@@ -18,6 +19,7 @@ import com.dwws.imo.exceptions.EntidadeNaoEncontradaException;
 import com.dwws.imo.modelo.Cargo;
 import com.dwws.imo.modelo.Escolaridade;
 import com.dwws.imo.modelo.Vaga;
+import com.dwws.imo.service.LinkedDataService;
 import com.dwws.imo.web.qualifiers.SelectMenuItem;
 import com.dwws.imo.web.qualifiers.SelectMenuItemType;
 
@@ -27,6 +29,9 @@ import com.dwws.imo.web.qualifiers.SelectMenuItemType;
 public class VagaBean extends IMOBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
+	@EJB
+	private LinkedDataService linkedDataService;
 
 	@Inject @SelectMenuItem(SelectMenuItemType.CARGO)
 	private List<SelectItem> listaSelectCargos;
@@ -36,6 +41,8 @@ public class VagaBean extends IMOBean implements Serializable {
 	
 	@Inject
 	private Vaga novaVaga;
+	
+	private String descricaoCargo;
 	
 	/*
 	 * Dados passados à tela
@@ -111,8 +118,14 @@ public class VagaBean extends IMOBean implements Serializable {
 		}
 	}
 	
+	public void buscarDescricaoCargo() {
+		this.descricaoCargo = 
+				this.linkedDataService.buscarDescricaoCargo(this.vagaRecuperada.getCargo().getNome());
+	}
+	
 	
 	public void cancelarCandidatura() {
+		this.descricaoCargo = null;
 		setExibirDetalhesVaga(false);
 	}
 	
@@ -226,7 +239,9 @@ public class VagaBean extends IMOBean implements Serializable {
 		this.senhaTrabalhador = senhaTrabalhador;
 	}
 
-
+	public String getDescricaoCargo() {
+		return descricaoCargo;
+	}
 
 	
 }

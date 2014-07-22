@@ -25,6 +25,7 @@ com\dwws\imo\dao\jpa\IMONamedQuery.class
 com\dwws\imo\modelo\Candidatura.class
 com\dwws\imo\modelo\Estado.class
 com\dwws\imo\web\qualifiers\SelectMenuItem.class
+com\dwws\imo\service\LinkedDataService.class
 com\dwws\imo\web\validators\PasswordValidator.class
 com\dwws\imo\service\IMOService.class
 com\dwws\imo\modelo\Cargo.class
