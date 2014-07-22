@@ -47,7 +47,7 @@ width: 320px; /*Width of pagination DIV. Total width should equal slider's outer
 }
 
 .pagination .portfolio {
-	background: url("#{resource['images/templatemo_vagas.png']}") no-repeat;
+	background: url("#{resource['images/templatemo_vaga.png']}") no-repeat;
 }
 
 .pagination .testimonial {
@@ -59,7 +59,7 @@ width: 320px; /*Width of pagination DIV. Total width should equal slider's outer
 }
 
 .pagination .contact {
-	background: url("#{resource['images/templatemo_contact.png']}") no-repeat;
+	background: url("#{resource['images/templatemo_candidatar.png']}") no-repeat;
 }
 
 .pagination a:hover, .pagination a.selected{
@@ -107,10 +107,10 @@ background-color: #FEE496;
 }
 
 #paginate-slider4 a.portfolio{
-	background: url("#{resource['images/templatemo_vagas.png']}") no-repeat;
+	background: url("#{resource['images/templatemo_vaga.png']}") no-repeat;
 }
 #paginate-slider4 a.portfolio.selected{
-	background: url("#{resource['images/templatemo_vagas_hover.png']}") no-repeat;
+	background: url("#{resource['images/templatemo_vaga_hover.png']}") no-repeat;
 }
 
 #paginate-slider4 a.testimonial{
@@ -125,5 +125,5 @@ background-color: #FEE496;
 }
 
 #paginate-slider4 a.contact.selected{
-	background: url("#{resource['images/templatemo_contact_hover.png']}") no-repeat;
+	background: url("#{resource['images/templatemo_candidatar_hover.png']}") no-repeat;
 }

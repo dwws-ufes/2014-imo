@@ -34,7 +34,7 @@
 				<div class="margin_bottom_10"></div>
 				
 				<p:outputLabel value="Escolaridade" for="escolaridade_trab"/>
-				<p:selectOneMenu id="escolaridade_trab" value="#{trabalhadorBean.trabalhador.escolaridade.codigo}" 
+				<p:selectOneMenu id="escolaridade_trab" value="#{trabalhadorBean.trabalhador.escolaridade.codigo}" styleClass="input_field" 
 					required="true" requiredMessage="Campo Escolaridade obrigatório">
 					<f:selectItem itemLabel="Selecione a escolaridade" itemValue="#{null}"/>
 					<f:selectItems value="#{trabalhadorBean.listaSelectEscolaridade}"/>
