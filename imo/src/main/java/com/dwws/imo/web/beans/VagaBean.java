@@ -243,5 +243,9 @@ public class VagaBean extends IMOBean implements Serializable {
 		return descricaoCargo;
 	}
 
+	public void setDescricaoCargo(String descricaoCargo) {
+		this.descricaoCargo = descricaoCargo;
+	}
+
 	
 }

@@ -62,7 +62,8 @@
 					style="width: 80px;" required="true" requiredMessage="Campo Senha obrigatório"/>
 				<div class="margin_bottom_10"></div>
 				
-				<p:commandButton actionListener="#{vagaBean.cadastrarVaga}" ajax="false" value="Cadastrar" update="form_vaga"/>
+				<p:commandButton actionListener="#{vagaBean.cadastrarVaga}" ajax="false" value="Cadastrar" update="form_vaga"
+					onclick="startAjaxStatus()"/>
 				<p:commandButton value="Cancelar" type="reset" />
 				
 				<p:messages/>

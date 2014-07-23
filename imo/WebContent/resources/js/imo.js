@@ -28,3 +28,10 @@ function toggleCargo() {
 		inputCargo.disabled = true;
 	}
 }
+
+function startAjaxStatus() {
+	document.getElementById("nonAjaxStatus_start").style.display='block'; 
+	document.getElementById("nonAjaxStatus_complete").style.display='none'; 
+	document.getElementById("nonAjaxStatus_error").style.display='none'; 
+	document.getElementById("nonAjaxStatus_default").style.display='none';
+}

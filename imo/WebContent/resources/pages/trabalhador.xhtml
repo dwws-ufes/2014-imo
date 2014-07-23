@@ -87,7 +87,8 @@
 					style="width: 60px;" styleClass="input_field" required="true" requiredMessage="Campo Confirma Senha obrigatório"/>
 				<div class="margin_bottom_10"></div>
 				
-				<p:commandButton actionListener="#{trabalhadorBean.cadastrarTrabalhador}" ajax="false" value="Cadastrar" update="form_trab"/>
+				<p:commandButton actionListener="#{trabalhadorBean.cadastrarTrabalhador}" ajax="false" value="Cadastrar" update="form_trab"
+					onclick="startAjaxStatus()"/>
 				<p:commandButton value="Cancelar" type="reset" />
 			
 				<p:messages/>

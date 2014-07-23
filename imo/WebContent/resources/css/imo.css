@@ -37,3 +37,8 @@ table.vaga tr.even td {
     border-top: 1px solid #BBEEEE;
 }
 
+.modal_loading_img {
+	position: absolute;
+	left: 50%; 
+	top: 50%;
+}

@@ -2,9 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
       
 <h:head>
+	<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><ui:insert name="title"/></title>
 	<meta name="keywords" content="intermediação, mão-de-obra, emprego, vagas" />
@@ -44,6 +47,17 @@
 	        
 	        <div id="templatemo_content">
 	        
+	        	<p:ajaxStatus id="nonAjaxStatus">
+					<f:facet name="start">
+		        		<p:panel widgetVar="statusDialog" closable="false" style="position: absolute; background-color: rgba(0, 0, 0, 0.2); 
+		        			height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+							<p:graphicImage name="/images/loading.gif" styleClass="modal_loading_img"/>
+						</p:panel>
+		    		</f:facet>
+		    		<f:facet name="complete"/>
+				</p:ajaxStatus>
+				<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+		
 	            <div id="slider4" class="sliderwrapper">
 	            
 	            	<ui:insert name="home_mini_page"/>

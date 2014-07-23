@@ -9,11 +9,11 @@
 	<ui:define name="titulo_secao">Portifólio de Vagas</ui:define>
 	
 	<ui:define name="conteudo_secao">
-	
+		
 		<h:panelGroup id="panel_busca_vagas" rendered="#{vagaBean.exibirBuscaVagas}">
 		
 			<div class="contact_form">
-		
+				
 				<h:form id="form_portifolio">
 					
 					<p:outputLabel value="Cargo" for="select_cargo_portifolio"/>
@@ -31,7 +31,8 @@
 					</p:selectOneMenu>
 					<div class="margin_bottom_10"></div>
 					
-					<p:commandButton actionListener="#{vagaBean.buscarVagas}" ajax="false" value="Buscar" update="form_portifolio"/>
+					<p:commandButton actionListener="#{vagaBean.buscarVagas}" ajax="false" value="Buscar" update="form_portifolio"
+						onclick="startAjaxStatus()" id="cmd_busca_vagas"/>
 					
 					<p:messages/>
 					
@@ -76,7 +77,9 @@
 		<h:panelGroup id="panel_candidatura" rendered="#{vagaBean.exibirDetalhesVaga}">
 		
 			<div class="contact_form">
-			
+				
+
+				
 				<h:form id="form_candidatura">
 					
 					<h:inputHidden value="#{vagaBean.vagaRecuperada.codigo}" />
@@ -108,8 +111,10 @@
 						style="width: 60px;"/>
 					<div class="margin_bottom_10"></div>
 					
-					<p:commandButton actionListener="#{vagaBean.registrarCandidatura}" ajax="false" value="Candidatar" update="form_candidatura" />
-					<p:commandButton actionListener="#{vagaBean.cancelarCandidatura}" ajax="false" value="Cancelar" immediate="true" />
+					<p:commandButton actionListener="#{vagaBean.registrarCandidatura}" ajax="false" value="Candidatar" update="form_candidatura" 
+						onclick="startAjaxStatus()"/>
+					<p:commandButton actionListener="#{vagaBean.cancelarCandidatura}" ajax="false" value="Cancelar" immediate="true" 
+						onclick="startAjaxStatus()"/>
 					
 					<p:messages/>
 				
