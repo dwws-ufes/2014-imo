@@ -9,10 +9,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="vaga", schema="imo")
+@NamedQueries({
+	@NamedQuery(name="CONTAGEM_VAGAS_DISPONIVEIS", 
+			query="SELECT COUNT(v) FROM Vaga v")
+})
 public class Vaga implements Serializable {
 
 	private static final long serialVersionUID = 1L;

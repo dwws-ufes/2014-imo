@@ -14,12 +14,17 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.LazyDataModel;
+
 import com.dwws.imo.exceptions.CandidaturaException;
 import com.dwws.imo.exceptions.EntidadeNaoEncontradaException;
 import com.dwws.imo.modelo.Cargo;
 import com.dwws.imo.modelo.Escolaridade;
 import com.dwws.imo.modelo.Vaga;
 import com.dwws.imo.service.LinkedDataService;
+import com.dwws.imo.web.components.VagaLazyList;
 import com.dwws.imo.web.qualifiers.SelectMenuItem;
 import com.dwws.imo.web.qualifiers.SelectMenuItemType;
 
@@ -42,34 +47,32 @@ public class VagaBean extends IMOBean implements Serializable {
 	@Inject
 	private Vaga novaVaga;
 	
+	// Descrição do cargo obtida via Linked Data
 	private String descricaoCargo;
 	
 	/*
 	 * Dados passados à tela
 	 */
-	private List<Vaga> vagasEncontradas;
-	private Vaga vagaRecuperada;
+	@Inject
+	private LazyDataModel<Vaga> dataModelVagas;
+	private Vaga vagaSelecionada;
 	/*
 	 * Controles de estado de componentes 
 	 */
 	private boolean indicadorNovoCargo;
-	private boolean exibirVagasDisponiveis;
-	private boolean exibirBuscaVagas;
-	private boolean exibirDetalhesVaga;
+	private boolean exibirTabelasVagas;
 	
 	/*
 	 * Parâmetros recebidos da tela
 	 */
 	private Integer codigoCargoConsulta;
 	private Integer codigoEscolaridadeConsulta;
-	private Integer codigoVagaProcurada;
 	private String usuarioTrabalhador;
 	private String senhaTrabalhador;
 	
 
 	@PostConstruct
 	public void inicializar() {
-		setExibirBuscaVagas(true);
 	}
 	
 	public void cadastrarVaga() {
@@ -87,22 +90,14 @@ public class VagaBean extends IMOBean implements Serializable {
 	
 	
 	public void buscarVagas() {
-		
-		try {
-			this.vagasEncontradas = 
-					this.imoService.buscarVagas(codigoEscolaridadeConsulta, codigoCargoConsulta);
-			this.exibirVagasDisponiveis = true;
-		} 
-		catch (EntidadeNaoEncontradaException e) {
-			this.exibirVagasDisponiveis = false;
-			disponibilizarMensagemErro("Nenhuma vaga encontrada para os parâmetros informados.");
-		}
+		this.exibirTabelasVagas = true;
+		((VagaLazyList) this.dataModelVagas).setCodigoCargoConsulta(codigoCargoConsulta);
+		((VagaLazyList) this.dataModelVagas).setCodigoEscolaridadeConsulta(codigoEscolaridadeConsulta);
 	}
 	
 	
-	public void buscarVaga() {
-		this.vagaRecuperada = this.imoService.buscarVaga(this.codigoVagaProcurada);
-		setExibirDetalhesVaga(true);
+	public void buscarVaga(SelectEvent event) {
+		this.vagaSelecionada = this.imoService.buscarVaga(((Vaga) event.getObject()).getCodigo());
 	}
 	
 	
@@ -110,8 +105,8 @@ public class VagaBean extends IMOBean implements Serializable {
 		
 		try {
 			this.imoService.registrarCandidatura(
-					usuarioTrabalhador, senhaTrabalhador, codigoVagaProcurada);
-			setExibirBuscaVagas(true);
+					usuarioTrabalhador, senhaTrabalhador, this.vagaSelecionada.getCodigo());
+			showDialogInfoMessage("Resultado de Candidatura", "Candidatura efetuada com sucesso!");
 		} 
 		catch (CandidaturaException e) {
 			disponibilizarMensagemErro("Falha no registro da candidatura: " + e.getMessage());
@@ -120,13 +115,11 @@ public class VagaBean extends IMOBean implements Serializable {
 	
 	public void buscarDescricaoCargo() {
 		this.descricaoCargo = 
-				this.linkedDataService.buscarDescricaoCargo(this.vagaRecuperada.getCargo().getNome());
+				this.linkedDataService.buscarDescricaoCargo(this.vagaSelecionada.getCargo().getNome());
 	}
-	
 	
 	public void cancelarCandidatura() {
 		this.descricaoCargo = null;
-		setExibirDetalhesVaga(false);
 	}
 	
 	public List<SelectItem> getListaSelectCargos() {
@@ -160,6 +153,11 @@ public class VagaBean extends IMOBean implements Serializable {
 	protected void disponibilizarMensagemErro(String mensagem) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(mensagem));
 	}
+	
+	protected void showDialogInfoMessage(String header, String text) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, header, text);
+        RequestContext.getCurrentInstance().showMessageInDialog(message);
+	}
 
 	public boolean isIndicadorNovoCargo() {
 		return indicadorNovoCargo;
@@ -185,42 +183,24 @@ public class VagaBean extends IMOBean implements Serializable {
 		this.codigoEscolaridadeConsulta = codigoEscolaridadeConsulta;
 	}
 
-	public List<Vaga> getVagasEncontradas() {
-		return vagasEncontradas;
+	public LazyDataModel<Vaga> getVagasEncontradas() {
+		return dataModelVagas;
 	}
 
-	public boolean isExibirVagasDisponiveis() {
-		return exibirVagasDisponiveis;
+	public LazyDataModel<Vaga> getDataModelVagas() {
+		return dataModelVagas;
 	}
 
-	public void setExibirVagasDisponiveis(boolean exibirVagasDisponiveis) {
-		this.exibirVagasDisponiveis = exibirVagasDisponiveis;
+	public void setDataModelVagas(LazyDataModel<Vaga> dataModelVagas) {
+		this.dataModelVagas = dataModelVagas;
 	}
 
-	public boolean isExibirBuscaVagas() {
-		return exibirBuscaVagas;
+	public Vaga getVagaSelecionada() {
+		return vagaSelecionada;
 	}
 
-	public void setExibirBuscaVagas(boolean exibirBuscaVagas) {
-		this.exibirBuscaVagas = exibirBuscaVagas;
-		this.exibirDetalhesVaga = !exibirBuscaVagas;
-	}
-
-	public boolean isExibirDetalhesVaga() {
-		return exibirDetalhesVaga;
-	}
-
-	public void setExibirDetalhesVaga(boolean exibirDetalhesVaga) {
-		this.exibirDetalhesVaga = exibirDetalhesVaga;
-		this.exibirBuscaVagas = !exibirDetalhesVaga;
-	}
-
-	public void setCodigoVagaProcurada(Integer codigoVagaProcurada) {
-		this.codigoVagaProcurada = codigoVagaProcurada;
-	}
-
-	public Vaga getVagaRecuperada() {
-		return vagaRecuperada;
+	public void setVagaSelecionada(Vaga vagaSelecionada) {
+		this.vagaSelecionada = vagaSelecionada;
 	}
 
 	public String getUsuarioTrabalhador() {
@@ -247,5 +227,12 @@ public class VagaBean extends IMOBean implements Serializable {
 		this.descricaoCargo = descricaoCargo;
 	}
 
+	public boolean isExibirTabelasVagas() {
+		return exibirTabelasVagas;
+	}
+
+	public void setExibirTabelasVagas(boolean exibirTabelasVagas) {
+		this.exibirTabelasVagas = exibirTabelasVagas;
+	}
 	
 }

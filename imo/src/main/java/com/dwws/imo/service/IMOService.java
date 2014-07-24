@@ -65,8 +65,18 @@ public class IMOService {
 		return this.vagaDao.buscarLista(codigoEscolaridade, codigoCargo);
 	}
 	
+	
+	public List<Vaga> buscarVagas(Integer codigoEscolaridade, Integer codigoCargo, int indice, int quantidade) 
+			throws EntidadeNaoEncontradaException {
+		return this.vagaDao.buscarSubLista(codigoEscolaridade, codigoCargo, indice, quantidade);
+	}
+	
 	public Vaga buscarVaga(Integer id) {
 		return this.vagaDao.buscar(id);
+	}
+	
+	public int obterQuantitativoVagas(Integer codigoEscolaridade, Integer codigoCargo) {
+		return this.vagaDao.obterQuantitativoDisponivel(codigoEscolaridade, codigoCargo);
 	}
 	
 	public void cadastrarTrabalhador(Trabalhador trabalhador) {
