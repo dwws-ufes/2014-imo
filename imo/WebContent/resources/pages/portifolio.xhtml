@@ -103,27 +103,22 @@
 						style="width: 60px;"/>
 					<div class="margin_bottom_10"></div>
 					
-					 <p:commandButton actionListener="#{vagaBean.registrarCandidatura}" value="Candidatar" update="@form"
-					 	oncomplete="if (args &amp;&amp; !args.validationFailed) PF('detalhesVagaDialog').hide();">
-					 </p:commandButton>
-			
-					<p:commandButton actionListener="#{vagaBean.cancelarCandidatura}" value="Cancelar" update="@form" 
-						onclick="PF('detalhesVagaDialog').hide()">
-						<p:resetInput target="@form"/>
-					</p:commandButton>
-					
-					<p:messages/>
-				
-				</h:form>
-				
-				<h:form id="form_descricao_cargo">
-					<p:commandButton value="Buscar Descrição do Cargo" update="texto_descricao_cargo" 
-						actionListener="#{vagaBean.buscarDescricaoCargo()}" process="@this"/>
-					<div class="margin_bottom_10"></div>
-					
 					<p:outputLabel value="Descrição"/>
 					<p:inputTextarea rows="5" cols="33" id="texto_descricao_cargo" value="#{vagaBean.descricaoCargo}"/>
+					<div class="margin_bottom_10"></div>
+					
+					<!-- http://stackoverflow.com/questions/9195756/keep-pdialog-up-when-a-validation-error-occurs-after-submit -->
+					<p:commandButton actionListener="#{vagaBean.registrarCandidatura}" value="Candidatar" update="@form"
+						oncomplete="if (!args.validationFailed &amp;&amp; args.sucesso) PF('detalhesVagaDialog').hide()"/>
+			
+					<p:commandButton value="Cancelar" onclick="PF('detalhesVagaDialog').hide()" resetValues="true" 
+						update="@form" actionListener="#{vagaBean.cancelarCandidatura()}" immediate="true"/>
+					
+					<p:commandButton value="Buscar Descrição do Cargo" update="texto_descricao_cargo" 
+						actionListener="#{vagaBean.buscarDescricaoCargo()}" process="@this"/>
+					
 					<p:messages/>
+				
 				</h:form>
 				
 			</p:outputPanel>

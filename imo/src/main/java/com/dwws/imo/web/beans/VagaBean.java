@@ -106,9 +106,11 @@ public class VagaBean extends IMOBean implements Serializable {
 		try {
 			this.imoService.registrarCandidatura(
 					usuarioTrabalhador, senhaTrabalhador, this.vagaSelecionada.getCodigo());
+			RequestContext.getCurrentInstance().addCallbackParam("sucesso", true);
 			showDialogInfoMessage("Resultado de Candidatura", "Candidatura efetuada com sucesso!");
 		} 
 		catch (CandidaturaException e) {
+			RequestContext.getCurrentInstance().addCallbackParam("sucesso", false);
 			disponibilizarMensagemErro("Falha no registro da candidatura: " + e.getMessage());
 		}
 	}
