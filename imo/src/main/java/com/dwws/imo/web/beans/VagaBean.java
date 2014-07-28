@@ -23,7 +23,7 @@ import com.dwws.imo.exceptions.EntidadeNaoEncontradaException;
 import com.dwws.imo.modelo.Cargo;
 import com.dwws.imo.modelo.Escolaridade;
 import com.dwws.imo.modelo.Vaga;
-import com.dwws.imo.service.LinkedDataService;
+import com.dwws.imo.service.LinkedDataFacade;
 import com.dwws.imo.web.components.VagaLazyList;
 import com.dwws.imo.web.qualifiers.SelectMenuItem;
 import com.dwws.imo.web.qualifiers.SelectMenuItemType;
@@ -36,7 +36,7 @@ public class VagaBean extends IMOBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private LinkedDataService linkedDataService;
+	private LinkedDataFacade linkedDataFacade;
 
 	@Inject @SelectMenuItem(SelectMenuItemType.CARGO)
 	private List<SelectItem> listaSelectCargos;
@@ -117,7 +117,7 @@ public class VagaBean extends IMOBean implements Serializable {
 	
 	public void buscarDescricaoCargo() {
 		this.descricaoCargo = 
-				this.linkedDataService.buscarDescricaoCargo(this.vagaSelecionada.getCargo().getNome());
+				this.linkedDataFacade.buscarDescricaoCargo(this.vagaSelecionada.getCargo().getNome());
 	}
 	
 	public void cancelarCandidatura() {
