@@ -13,6 +13,18 @@ public class DBPediaService {
 	
 	private static final String ENDPOINT = "http://dbpedia.org/sparql";
 	
+	/*
+	PREFIX type: <http://dbpedia.org/class/yago/>
+	PREFIX prop: <http://dbpedia.org/property/>
+	SELECT str(?estados_nome)
+	WHERE {
+	?estado a type:StatesOfBrazil;
+	rdfs:label ?estados_nome
+	FILTER (langMatches(lang(?estados_nome),"pt"))
+	}
+	ORDER BY (?estados_nome)
+	 */
+	
 	public String buscarDescricaoCargo(String nomeCargo) {
 		return "Linked Data --- Descrição Cargo";
 	}
