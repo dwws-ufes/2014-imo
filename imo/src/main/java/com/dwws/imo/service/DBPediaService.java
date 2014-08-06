@@ -1,31 +1,45 @@
 package com.dwws.imo.service;
 
+import java.text.Normalizer;
+
 import javax.ejb.Stateless;
+
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 
 @Stateless
 public class DBPediaService {
 
-	private static final String PREFIXO = 
-			"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " + 
-			"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
-			"PREFIX : <http://dbpedia.org/resource/> " +
-			"PREFIX d: <http://dbpedia.org/ontology/> ";
-	
 	private static final String ENDPOINT = "http://dbpedia.org/sparql";
 	
-	/*
-	PREFIX type: <http://dbpedia.org/class/yago/>
-	PREFIX prop: <http://dbpedia.org/property/>
-	SELECT str(?estados_nome)
-	WHERE {
-	?estado a type:StatesOfBrazil;
-	rdfs:label ?estados_nome
-	FILTER (langMatches(lang(?estados_nome),"pt"))
-	}
-	ORDER BY (?estados_nome)
-	 */
-	
-	public String buscarDescricaoCargo(String nomeCargo) {
-		return "Linked Data --- Descrição Cargo";
+	public String buscarDescricaoProfissao(String profissao) {
+		
+		profissao = profissao.replaceAll(" ", "_");
+		profissao = Normalizer.normalize(profissao, Normalizer.Form.NFD);
+		
+		StringBuilder sparqlQueryBuilder = new StringBuilder();
+		sparqlQueryBuilder.append("SELECT ?desc ")
+			.append("WHERE { <http://dbpedia.org/resource/").append(profissao).append("> ")
+			.append("<http://dbpedia.org/ontology/abstract> ?desc ")
+			.append("FILTER (langMatches(lang(?desc), 'pt') || langMatches(lang(?desc), 'en')) ")
+			.append("}");
+
+		System.out.println("Query Sparql: " + sparqlQueryBuilder.toString());
+		Query query = QueryFactory.create(sparqlQueryBuilder.toString());
+		QueryExecution queryExecution = QueryExecutionFactory.sparqlService(ENDPOINT, query);
+		
+		ResultSet results = queryExecution.execSelect();
+		String descricaoProfissao = "Nenhuma informação recuperada.";
+		
+		while (results.hasNext()) {
+			QuerySolution soln = results.next();
+			descricaoProfissao = soln.getLiteral("desc").toString();
+		}
+		
+		return descricaoProfissao;
 	}
 }

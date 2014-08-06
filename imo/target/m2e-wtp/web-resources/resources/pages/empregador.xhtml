@@ -21,7 +21,8 @@
 				
 				<p:outputLabel value="CNPJ" for="cnpj_emp"/>
 				<p:inputMask mask="99.999.999/9999-99" id="cnpj_emp" value="#{empregadorBean.empregador.cnpj}" 
-					styleClass="input_field" required="true" requiredMessage="Campo CNPJ obrigatório"/>
+					styleClass="input_field" required="true" requiredMessage="Campo CNPJ obrigatório"
+					converter="maskConverter"/>
 				<div class="margin_bottom_10"></div>
 				
 				<p:outputLabel value="Email" for="email_emp"/>

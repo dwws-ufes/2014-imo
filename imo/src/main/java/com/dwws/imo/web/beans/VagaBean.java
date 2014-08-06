@@ -115,11 +115,6 @@ public class VagaBean extends IMOBean implements Serializable {
 		}
 	}
 	
-	public void buscarDescricaoCargo() {
-		this.descricaoCargo = 
-				this.linkedDataFacade.buscarDescricaoCargo(this.vagaSelecionada.getCargo().getNome());
-	}
-	
 	public void cancelarCandidatura() {
 		this.descricaoCargo = null;
 	}

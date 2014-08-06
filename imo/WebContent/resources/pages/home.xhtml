@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<ui:composition template="/WEB-INF/templates/imo_mini_page_template.xhtml">
@@ -14,10 +15,9 @@
 	    		<h:graphicImage value="/resources/images/imagem_carteira_trabalho.png" alt="image"/>
         	</div>
                     
-	        <p>Essa atividade objetiva (re)colocar o trabalhador no mercado de trabalho. Para isso, o Sistema Nacional de 
-	        Emprego dispõe de informações acerca das exigências dos empregadores ao disponibilizarem suas vagas junto aos postos
-	        de atendimento do SINE. Busca-se, dessa forma, a redução dos custos e do tempo de espera tanto para o trabalhador, 
-	        quanto para o empregador.</p>
+	        <p>Essa atividade objetiva (re)colocar o trabalhador no mercado de trabalho. Para isso, o sistema IMO  
+	        dispõe de informações acerca das exigências dos empregadores ao disponibilizarem suas vagas. Busca-se, dessa forma, 
+	        a redução dos custos e do tempo de espera tanto para o trabalhador, quanto para o empregador.</p>
 	
 			<p class="negrito">Alguns conceitos e definições podem ajudar a entender o que é intermediação:</p>
 	
@@ -31,30 +31,39 @@
 			<p class="negrito">3) Atividades desenvolvidas na intermediação de mão-de-obra:</p>
 		
 			<ul>
-				<li>Inscritos - todos os trabalhadores que buscam o SINE à procura das ações que compõem o Programa do Seguro-Desemprego;</li>
+				<li>Inscritos - todos os trabalhadores à procura das ações que compõem o Programa do Seguro-Desemprego.
+				A inscrição do trabalhador está restrita ao correto preenchimento do cadastro.</li>
 			</ul>
-		
-			<p>A inscrição do trabalhador não está restrita ao correto preenchimento do cadastro. O essencial é que 
-			possamos descobrir quem é aquela pessoa que estamos atendendo e sua verdadeira pretensão.</p>
 		
 			<ul>
-				<li>Vagas - todo posto de trabalho oferecido ao SINE pelo mercado de trabalho.</li>
-				<li>Encaminhados - todos os candidatos selecionados, de acordo com o perfil das vagas existentes no
-				 mercado de trabalho, oriundos das inscrições realizadas pelo SINE que são encaminhados ao mercado de trabalho formal.</li>
-				<li>Colocados - candidatos que conseguiram uma colocação no mercado de trabalho formal por intermédio 
-				do SINE, ou seja, é o resultado positivo do processo de intermediação de mão-de-obra executado.</li>
+				<li>Vagas - todo posto de trabalho oferecido à IMO pelo mercado de trabalho.</li>
 			</ul>
 		
-			<p class="negrito">4) Clientela alvo:</p>
+			<p class="negrito">4) Informador Profissional: Recurso para pronta consulta de dados interligados na web referentes 
+			às diversas atividades profissionais exercidas. Para um melhor alcance das buscas, utilize preferencialmente 
+			termos em inglês.</p>
 			
-			<ul>
-				<li>trabalhadores em geral, desempregados ou em busca de nova ocupação;</li>
-				<li>pessoas portadoras de deficiência;</li>
-				<li>idosos;</li>
-				<li>pessoas que buscam o primeiro emprego;</li>
-				<li>empregadores da iniciativa privada ou governamental.</li>
-			</ul>
-		
+			<div class="contact_form">
+			
+				<h:form id="form_info_prof">
+				
+					<p:outputLabel value="Profissão" for="input_profissao"/>
+					<p:inputText value="#{informadorBean.profissao}" styleClass="input_field" 
+					id="input_profissao" maxlength="30"/>
+					<div class="margin_bottom_10"/>
+			
+					<p:outputLabel value="Descrição" for="desc_profissao"/>
+					<p:inputTextarea id="desc_profissao" value="#{informadorBean.descricaoProfissao}"/>
+					<div class="margin_bottom_10"></div>
+				
+					<p:commandButton value="Buscar Descrição" update="desc_profissao" 
+						actionListener="#{informadorBean.buscarDescricaoProfissao}"/>
+					<p:commandButton value="Limpar" actionListener="#{informadorBean.limparDescricao}" resetValues="true" 
+						update="@form" immediate="true"/>
+				</h:form>
+			
+			</div>
+			
 		</ui:define>
 	
 	</ui:composition>

@@ -9,8 +9,8 @@ public class LinkedDataFacade {
 	@EJB
 	private DBPediaService dbpediaService;
 	
-	public String buscarDescricaoCargo(String nomeCargo) {
-		return this.dbpediaService.buscarDescricaoCargo(nomeCargo);
+	public String buscarDescricaoProfissao(String profissao) {
+		return this.dbpediaService.buscarDescricaoProfissao(profissao);
 	}
 
 }

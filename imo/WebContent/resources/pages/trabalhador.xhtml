@@ -30,7 +30,8 @@
 				
 				<p:outputLabel value="CPF" for="cpf_trab"/>
 				<p:inputMask mask="999.999.999-99" id="cpf_trab" value="#{trabalhadorBean.trabalhador.cpf}" 
-					styleClass="input_field" required="true" requiredMessage="Campo CPF obrigatório"/>
+					styleClass="input_field" required="true" requiredMessage="Campo CPF obrigatório"
+					converter="maskConverter"/>
 				<div class="margin_bottom_10"></div>
 				
 				<p:outputLabel value="Escolaridade" for="escolaridade_trab"/>
@@ -48,7 +49,8 @@
 				
 				<p:outputLabel value="Telefone" for="telefone_trab"/>
 				<p:inputMask mask="999-999-999" id="telefone_trab" value="#{trabalhadorBean.trabalhador.telefone}" 
-					styleClass="input_field" required="true" requiredMessage="Campo Telefone obrigatório"/>
+					styleClass="input_field" required="true" requiredMessage="Campo Telefone obrigatório"
+					converter="maskConverter"/>
 				<div class="margin_bottom_10"></div>
 				
 				<p:outputLabel value="Endereço" for="endereco_trab"/>

@@ -62,7 +62,7 @@
             						<jndi-name>java:jboss/datasources/imoDS</jndi-name>
             						<enabled>true</enabled>
             						<user-name>postgres</user-name>
-            						<password>postgres</password>
+            						<password>t1n8r97</password>
             						<driver-name>postgresql-9.1-901-1.jdbc4.jar</driver-name>
             						<use-ccm>false</use-ccm>
             					</properties>

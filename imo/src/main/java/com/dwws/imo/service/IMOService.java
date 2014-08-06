@@ -42,6 +42,7 @@ public class IMOService {
 	
 	
 	public void cadastrarEmpregador(Empregador empregador) {
+		// TODO impedir cadastro de empregadores duplicados
 		this.empregadorDao.criar(empregador);
 	}
 	
@@ -80,6 +81,7 @@ public class IMOService {
 	}
 	
 	public void cadastrarTrabalhador(Trabalhador trabalhador) {
+		// TODO impedir o cadastro de trabalhadores duplicados
 		this.trabalhadorDao.criar(trabalhador);
 	}
 	
