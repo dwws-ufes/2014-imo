@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+
+import org.primefaces.context.RequestContext;
 
 import com.dwws.imo.modelo.Escolaridade;
 import com.dwws.imo.service.IMOService;
@@ -32,5 +35,11 @@ public class IMOBean {
 	public List<SelectItem> getListaSelectEscolaridade() {
 		return listaSelectEscolaridade;
 	}
+	
+	protected void showDialogInfoMessage(String header, String text) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, header, text);
+        RequestContext.getCurrentInstance().showMessageInDialog(message);
+	}
+
 	
 }

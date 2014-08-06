@@ -81,6 +81,7 @@ public class VagaBean extends IMOBean implements Serializable {
 			this.imoService.cadastrarVaga(novaVaga);
 			this.novaVaga = new Vaga();
 			this.indicadorNovoCargo = false;
+			showDialogInfoMessage("Resultado de Cadastro", "Vaga de emprego cadastrada com sucesso!");
 			gerarListaSelectCargos();
 		} 
 		catch (EntidadeNaoEncontradaException e) {
@@ -151,11 +152,6 @@ public class VagaBean extends IMOBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(mensagem));
 	}
 	
-	protected void showDialogInfoMessage(String header, String text) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, header, text);
-        RequestContext.getCurrentInstance().showMessageInDialog(message);
-	}
-
 	public boolean isIndicadorNovoCargo() {
 		return indicadorNovoCargo;
 	}

@@ -127,6 +127,7 @@ turnpage:function(setting, thepage, autocall){
 	turntopage=(turntopage<1)? totalpages : (turntopage>totalpages)? 1 : turntopage //test for out of bound and adjust
 	if (turntopage==setting.currentpage && typeof autocall=="undefined") //if a pagination link is clicked on repeatedly
 		return
+	//if (turntopage != setting.currentpage) history.go(0); // inclusão para reload da página na troca de mini-page
 	setting.currentpage=turntopage
 	setting.contentdivs[turntopage-1].style.zIndex=++setting.topzindex
 	this.cleartimer(setting, window["fcsfade"+setting.id])

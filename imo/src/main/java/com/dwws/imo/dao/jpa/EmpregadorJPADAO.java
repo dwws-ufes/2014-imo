@@ -34,6 +34,34 @@ public class EmpregadorJPADAO implements EmpregadorDAO {
 			throw new EntidadeNaoEncontradaException(e.getMessage(), e);
 		}
 	}
+
+	@Override
+	public Empregador buscarPorCNPJ(String cnpj) throws EntidadeNaoEncontradaException {
+		
+		try {
+			return (Empregador) this.em.createNamedQuery(
+					IMONamedQuery.BUSCA_EMPREGADOR_POR_CNPJ.name())
+					.setParameter("cnpj", cnpj)
+					.getSingleResult();
+		}
+		catch (NoResultException e) {
+			throw new EntidadeNaoEncontradaException(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public Empregador buscarPorUsuario(String usuario) throws EntidadeNaoEncontradaException {
+		
+		try {
+			return (Empregador) this.em.createNamedQuery(
+					IMONamedQuery.BUSCA_EMPREGADOR_POR_USUARIO.name())
+					.setParameter("usuario", usuario)
+					.getSingleResult();
+		}
+		catch (NoResultException e) {
+			throw new EntidadeNaoEncontradaException(e.getMessage(), e);
+		}
+	}
 	
 	
 }

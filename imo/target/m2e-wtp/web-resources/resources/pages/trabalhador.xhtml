@@ -31,7 +31,9 @@
 				<p:outputLabel value="CPF" for="cpf_trab"/>
 				<p:inputMask mask="999.999.999-99" id="cpf_trab" value="#{trabalhadorBean.trabalhador.cpf}" 
 					styleClass="input_field" required="true" requiredMessage="Campo CPF obrigatório"
-					converter="maskConverter"/>
+					converter="maskConverter">
+					<f:validator binding="#{documentoCPFValidator}"/>
+				</p:inputMask>
 				<div class="margin_bottom_10"></div>
 				
 				<p:outputLabel value="Escolaridade" for="escolaridade_trab"/>
@@ -73,7 +75,9 @@
 				
 				<p:outputLabel value="Usuário" for="user_trab"/>
 				<p:inputText id="user_trab" value="#{trabalhadorBean.trabalhador.usuario}" 
-					maxlength="8" styleClass="input_field" required="true" requiredMessage="Campo Usuário obrigatório"/>
+					maxlength="8" styleClass="input_field" required="true" requiredMessage="Campo Usuário obrigatório">
+					<f:validator binding="#{usuarioTrabalhadorValidator}"/>
+				</p:inputText>
 				<div class="margin_bottom_10"></div>
 				
 				<p:outputLabel value="Senha" for="senha_trab"/>
@@ -91,10 +95,11 @@
 				
 				<p:commandButton actionListener="#{trabalhadorBean.cadastrarTrabalhador}" ajax="false" value="Cadastrar" update="form_trab"
 					onclick="startAjaxStatus()"/>
-				<p:commandButton value="Cancelar" type="reset" />
-			
+				<p:commandButton value="Cancelar" resetValues="true" update="@form" immediate="true"/>
+				<div class="margin_bottom_10"></div>
+				
 				<p:messages/>
-					
+				
 			</h:form>
 			
 		</div>

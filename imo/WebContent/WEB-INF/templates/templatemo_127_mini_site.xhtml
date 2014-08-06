@@ -27,71 +27,76 @@
 </h:head>
 
 <h:body>
-
-	<div id="templatemo_container">
 	
-	        <div id="templatemo_left_panel">
-	        
-	            <div id="logo"> 
-	            </div>
-	            
-	            <div id="paginate-slider4" class="pagination">
-	            	<a href="#" class="toc home">&nbsp;</a>
-	                <a href="#" class="toc services">&nbsp;</a>
-	                <a href="#" class="toc portfolio">&nbsp;</a>
-	                <a href="#" class="toc about">&nbsp;</a>
-	                <a href="#" class="toc contact">&nbsp;</a>
-	            </div>
-	            
-	        </div>
-	        
-	        <div id="templatemo_content">
-	        
-	            <div id="slider4" class="sliderwrapper">
-	            
-	                <p:ajaxStatus id="nonAjaxStatus">
-						<f:facet name="start">
-				       		<p:panel widgetVar="statusDialog" closable="false" style="position: absolute; background-color: rgba(0, 0, 0, 0.2); 
-				       			height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
-								<p:graphicImage name="/images/loading.gif" styleClass="modal_loading_img"/>
-							</p:panel>
-				   		</f:facet>
-				   		<f:facet name="complete"/>
-					</p:ajaxStatus>
-	            
-	            	<ui:insert name="home_mini_page"/>
-	            	
-	            	<ui:insert name="action_1_mini_page"/>
-	            	
-	            	<ui:insert name="action_2_mini_page"/>
+	<f:view>
 	
-					<ui:insert name="action_3_mini_page"/>
-	                
-	                <ui:insert name="action_4_mini_page"/>
-	                
-				</div>
-	 
-	            <script type="text/javascript">
-	            
-	            featuredcontentslider.init({
-	            id: "slider4", //id of main slider DIV
-	            contentsource: ["inline", ""], //Valid values: ["inline", ""] or ["ajax", "path_to_file"]
-	            toc: "markup", //Valid values: "#increment", "markup", ["label1", "label2", etc]
-	            nextprev: ["", ""], //labels for "prev" and "next" links. Set to "" to hide.
-	            revealtype: "click", //Behavior of pagination links to reveal the slides: "click" or "mouseover"
-	            enablefade: [true, 0.1], //[true/false, fadedegree]
-	            autorotate: [false, 3000], //[true/false, pausetime]
-	            onChange: function(previndex, curindex){ //event handler fired whenever script changes slide
-	            //previndex holds index of last slide viewed b4 current (1=1st slide, 2nd=2nd etc)
-	            //curindex holds index of currently shown slide (1=1st slide, 2nd=2nd etc)
-	            }
-	            })
-	            
-	            </script>
-	        
-	        </div>
-	</div>
-	<!--  Free XHTML/CSS Template by TemplateMo.com  -->
+		<div id="templatemo_container">
+		
+		        <div id="templatemo_left_panel">
+		        
+		            <div id="logo"> 
+		            </div>
+		            
+		            <div id="paginate-slider4" class="pagination">
+		            	<a href="#" class="toc home">&nbsp;</a>
+		                <a href="#" class="toc services">&nbsp;</a>
+		                <a href="#" class="toc portfolio">&nbsp;</a>
+		                <a href="#" class="toc about">&nbsp;</a>
+		                <a href="#" class="toc contact">&nbsp;</a>
+		            </div>
+		            
+		        </div>
+		        
+		        <div id="templatemo_content">
+		        
+		            <div id="slider4" class="sliderwrapper">
+		            
+		                <p:ajaxStatus id="nonAjaxStatus">
+							<f:facet name="start">
+					       		<p:panel widgetVar="statusDialog" closable="false" style="position: absolute; background-color: rgba(0, 0, 0, 0.2); 
+					       			height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+									<p:graphicImage name="/images/loading.gif" styleClass="modal_loading_img"/>
+								</p:panel>
+					   		</f:facet>
+					   		<f:facet name="complete"/>
+						</p:ajaxStatus>
+		            
+		            	<ui:insert name="home_mini_page"/>
+		            	
+		            	<ui:insert name="action_1_mini_page"/>
+		            	
+		            	<ui:insert name="action_2_mini_page"/>
+		
+						<ui:insert name="action_3_mini_page"/>
+		                
+		                <ui:insert name="action_4_mini_page"/>
+		                
+					</div>
+		 
+		            <script type="text/javascript">
+		            
+		            featuredcontentslider.init({
+		            id: "slider4", //id of main slider DIV
+		            contentsource: ["inline", ""], //Valid values: ["inline", ""] or ["ajax", "path_to_file"]
+		            toc: "markup", //Valid values: "#increment", "markup", ["label1", "label2", etc]
+		            nextprev: ["", ""], //labels for "prev" and "next" links. Set to "" to hide.
+		            revealtype: "click", //Behavior of pagination links to reveal the slides: "click" or "mouseover"
+		            enablefade: [true, 0.1], //[true/false, fadedegree]
+		            autorotate: [false, 3000], //[true/false, pausetime]
+		            onChange: function(previndex, curindex){ //event handler fired whenever script changes slide
+		            //previndex holds index of last slide viewed b4 current (1=1st slide, 2nd=2nd etc)
+		            //curindex holds index of currently shown slide (1=1st slide, 2nd=2nd etc)
+		            }
+		            })
+		            
+		            </script>
+		        
+		        </div>
+		</div>
+		<!--  Free XHTML/CSS Template by TemplateMo.com  -->
+	
+	</f:view>
+	
 </h:body>
 
 </html>

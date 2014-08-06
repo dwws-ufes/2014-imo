@@ -2,9 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
       
 <h:head>
+	<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><ui:insert name="title"/></title>
 	<meta name="keywords" content="intermediação, mão-de-obra, emprego, vagas" />
@@ -14,11 +17,11 @@
 	<h:outputStylesheet library="css" name="imo.css"/>
 	<h:outputScript library="js" name="contentslider.js"/>
 	<h:outputScript library="js" name="imo.js"/>
-	/***********************************************
-	* Featured Content Slider- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
-	* This notice MUST stay intact for legal use
-	* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
-	***********************************************/
+	<!-- 
+		Featured Content Slider- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+		This notice MUST stay intact for legal use
+		Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+	 -->
 	<!-- credit goes to http://www.nealgrosskopf.com/tech/thread.asp?pid=37 for vertical and horizontal centering -->
 	<script type="text/javascript"> (function ($) { $.fn.vAlign = function() { return this.each(function(i){ var h = $(this).height(); var oh = $(this).outerHeight(); var mt = (h + (oh - h)) / 2; $(this).css("margin-top", "-" + mt + "px"); $(this).css("top", "50%"); $(this).css("position", "absolute"); }); }; })(jQuery); (function ($) { $.fn.hAlign = function() { return this.each(function(i){ var w = $(this).width(); var ow = $(this).outerWidth(); var ml = (w + (ow - w)) / 2; $(this).css("margin-left", "-" + ml + "px"); $(this).css("left", "50%"); $(this).css("position", "absolute"); }); }; })(jQuery); $(document).ready(function() { $("#templatemo_container").vAlign(); $("#templatemo_container").hAlign(); }); </script>
 </h:head>
@@ -45,6 +48,16 @@
 	        <div id="templatemo_content">
 	        
 	            <div id="slider4" class="sliderwrapper">
+	            
+	                <p:ajaxStatus id="nonAjaxStatus">
+						<f:facet name="start">
+				       		<p:panel widgetVar="statusDialog" closable="false" style="position: absolute; background-color: rgba(0, 0, 0, 0.2); 
+				       			height: 256px; width: 256px; left:0%; top:0%; z-index:2; height: 100%; width: 100%">
+								<p:graphicImage name="/images/loading.gif" styleClass="modal_loading_img"/>
+							</p:panel>
+				   		</f:facet>
+				   		<f:facet name="complete"/>
+					</p:ajaxStatus>
 	            
 	            	<ui:insert name="home_mini_page"/>
 	            	

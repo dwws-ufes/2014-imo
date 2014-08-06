@@ -10,13 +10,13 @@ public class EmpregadorBean extends IMOBean {
 	
 	@Inject
 	private Empregador empregador;
+
 	
 	public void cadastrarEmpregador() {
-		System.out.println(this.empregador.toString());
 		this.imoService.cadastrarEmpregador(empregador);
+		showDialogInfoMessage("Resultado de Cadastro", "Cadastro de Empregador efetuado com sucesso!");
 		this.empregador = new Empregador();
 	}
-	
 
 	public Empregador getEmpregador() {
 		return empregador;

@@ -64,7 +64,8 @@
 				
 				<p:commandButton actionListener="#{vagaBean.cadastrarVaga}" ajax="false" value="Cadastrar" update="form_vaga"
 					onclick="startAjaxStatus()"/>
-				<p:commandButton value="Cancelar" type="reset" />
+				<p:commandButton value="Cancelar" resetValues="true" update="@form" immediate="true" />
+				<div class="margin_bottom_10"></div>
 				
 				<p:messages/>
 				

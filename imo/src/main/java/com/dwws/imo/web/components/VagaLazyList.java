@@ -40,7 +40,9 @@ public class VagaLazyList extends LazyDataModel<Vaga> {
 	public List<Vaga> load(int indicePrimero, int quantidadePorPagina, String sortField,
 			SortOrder sortOrder, Map<String, Object> filters) {
 		
-		if (getRowCount() <= 0) 
+		// Alteração feita para tentar consertar o datatable 
+		// Dia: 06/08/14 18:19
+		//if (getRowCount() <= 0) 
 			setRowCount(this.imoService.obterQuantitativoVagas(
 					codigoEscolaridadeConsulta, codigoCargoConsulta));
 		

@@ -22,7 +22,9 @@
 				<p:outputLabel value="CNPJ" for="cnpj_emp"/>
 				<p:inputMask mask="99.999.999/9999-99" id="cnpj_emp" value="#{empregadorBean.empregador.cnpj}" 
 					styleClass="input_field" required="true" requiredMessage="Campo CNPJ obrigatório"
-					converter="maskConverter"/>
+					converter="maskConverter">
+					<f:validator binding="#{documentoCNPJValidator}"/>
+				</p:inputMask>
 				<div class="margin_bottom_10"></div>
 				
 				<p:outputLabel value="Email" for="email_emp"/>
@@ -32,7 +34,9 @@
 			
 				<p:outputLabel value="Usuário" for="user_emp"/>
 				<p:inputText id="user_emp" value="#{empregadorBean.empregador.usuario}" 
-					maxlength="8" styleClass="input_field" required="true" requiredMessage="Campo Usuário obrigatório"/>
+					maxlength="8" styleClass="input_field" required="true" requiredMessage="Campo Usuário obrigatório">
+					<f:validator binding="#{usuarioEmpregadorValidator}" />
+				</p:inputText>
 				<div class="margin_bottom_10"></div>
 				
 				<p:outputLabel value="Senha" for="senha_emp"/>
@@ -50,7 +54,8 @@
 				
 				<p:commandButton actionListener="#{empregadorBean.cadastrarEmpregador}" ajax="false" value="Cadastrar" update="form_emp"
 					onclick="startAjaxStatus()"/>
-				<p:commandButton value="Cancelar" type="reset"  />
+				<p:commandButton value="Cancelar" resetValues="true" update="@form" immediate="true"/>
+				<div class="margin_bottom_10"></div>
 				
 				<p:messages/>
 				

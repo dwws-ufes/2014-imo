@@ -21,7 +21,11 @@ import javax.persistence.TemporalType;
 @Table(name="trabalhador", schema="imo")
 @NamedQueries({
 	@NamedQuery(name="BUSCA_TRABALHADOR_POR_USUARIO_SENHA", 
-			query="SELECT trab FROM Trabalhador trab WHERE trab.usuario = :usuario AND trab.senha = :senha")
+			query="SELECT trab FROM Trabalhador trab WHERE trab.usuario = :usuario AND trab.senha = :senha"),
+	@NamedQuery(name="BUSCA_TRABALHADOR_POR_USUARIO", 
+			query="SELECT trab FROM Trabalhador trab WHERE trab.usuario = :usuario"),
+	@NamedQuery(name="BUSCA_TRABALHADOR_POR_CPF", 
+			query="SELECT trab FROM Trabalhador trab WHERE trab.cpf = :cpf")
 })
 public class Trabalhador {
 	
@@ -44,7 +48,7 @@ public class Trabalhador {
 	private Date dataNascimento;
 	
 	@Basic
-	@Column(name="cpf", nullable=false, length=11)
+	@Column(name="cpf", nullable=false, length=11, unique=true)
 	private String cpf;
 	
 	@OneToOne
@@ -71,7 +75,7 @@ public class Trabalhador {
 	private Estado estado;
 	
 	@Basic
-	@Column(name="usuario", nullable=false, length=8)
+	@Column(name="usuario", nullable=false, length=8, unique=true)
 	private String usuario;
 	
 	@Basic

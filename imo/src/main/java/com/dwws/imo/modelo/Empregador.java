@@ -15,7 +15,11 @@ import javax.persistence.Table;
 @Table(name="empregador", schema="imo")
 @NamedQueries({
 	@NamedQuery(name="BUSCA_EMPREGADOR_POR_USUARIO_SENHA", 
-			query="SELECT emp FROM Empregador emp WHERE emp.usuario = :usuario AND emp.senha = :senha")
+			query="SELECT emp FROM Empregador emp WHERE emp.usuario = :usuario AND emp.senha = :senha"),
+	@NamedQuery(name="BUSCA_EMPREGADOR_POR_USUARIO", 
+			query="SELECT emp FROM Empregador emp WHERE emp.usuario = :usuario"),
+	@NamedQuery(name="BUSCA_EMPREGADOR_POR_CNPJ", 
+			query="SELECT emp FROM Empregador emp WHERE emp.cnpj = :cnpj")
 })
 public class Empregador implements Serializable {
 	
@@ -31,7 +35,7 @@ public class Empregador implements Serializable {
 	private String razaoSocial;
 	
 	@Basic
-	@Column(name="cnpj", nullable=false, length=14)
+	@Column(name="cnpj", nullable=false, length=14, unique=true)
 	private String cnpj;
 	
 	@Basic
@@ -39,7 +43,7 @@ public class Empregador implements Serializable {
 	private String email;
 	
 	@Basic
-	@Column(name="usuario", nullable=false, length=8)
+	@Column(name="usuario", nullable=false, length=8, unique=true)
 	private String usuario;
 	
 	@Basic

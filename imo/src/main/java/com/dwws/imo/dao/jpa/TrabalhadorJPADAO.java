@@ -31,4 +31,32 @@ public class TrabalhadorJPADAO extends IMOJPADAO implements TrabalhadorDAO {
 		}
 	}
 
+	@Override
+	public Trabalhador buscarPorUsuario(String usuario)
+			throws EntidadeNaoEncontradaException {
+		try {
+			return (Trabalhador) this.em.createNamedQuery(
+					IMONamedQuery.BUSCA_TRABALHADOR_POR_USUARIO.name())
+					.setParameter("usuario", usuario)
+					.getSingleResult();
+		}
+		catch (NoResultException e) {
+			throw new EntidadeNaoEncontradaException(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public Trabalhador buscarPorCPF(String cpf)
+			throws EntidadeNaoEncontradaException {
+		try {
+			return (Trabalhador) this.em.createNamedQuery(
+					IMONamedQuery.BUSCA_TRABALHADOR_POR_CPF.name())
+					.setParameter("cpf", cpf)
+					.getSingleResult();
+		}
+		catch (NoResultException e) {
+			throw new EntidadeNaoEncontradaException(e.getMessage(), e);
+		}
+	}
+
 }

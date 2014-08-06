@@ -23,6 +23,7 @@ public class TrabalhadorBean extends IMOBean {
 	
 	public void cadastrarTrabalhador() {
 		this.imoService.cadastrarTrabalhador(trabalhador);
+		showDialogInfoMessage("Resultado de Cadastro", "Cadastro de Trabalhador efetuado com sucesso!");
 		this.trabalhador = new Trabalhador();
 	}
 

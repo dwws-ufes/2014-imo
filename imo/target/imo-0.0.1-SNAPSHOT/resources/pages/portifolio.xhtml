@@ -9,92 +9,87 @@
 	<ui:define name="titulo_secao">Portifólio de Vagas</ui:define>
 	
 	<ui:define name="conteudo_secao">
-	
-		<h:panelGroup id="panel_busca_vagas" rendered="#{vagaBean.exibirBuscaVagas}">
 		
-			<div class="contact_form">
-		
-				<h:form id="form_portifolio">
-					
-					<p:outputLabel value="Cargo" for="select_cargo_portifolio"/>
-					<p:selectOneMenu id="select_cargo_portifolio" value="#{vagaBean.codigoCargoConsulta}">
-						<f:selectItem itemLabel="Selecione o cargo" itemValue="#{null}"/>
-						<f:selectItems value="#{vagaBean.listaSelectCargos}"/>
-					</p:selectOneMenu>
-					<div class="margin_bottom_10"/>
-					
-					<p:outputLabel value="Escolaridade" for="escolaridade_busca"/>
-					<p:selectOneMenu id="escolaridade_busca" value="#{vagaBean.codigoEscolaridadeConsulta}" 
-						required="true" requiredMessage="Campo Escolaridade obrigatório">
-						<f:selectItem itemLabel="Selecione a escolaridade" itemValue="#{null}"/>
-						<f:selectItems value="#{vagaBean.listaSelectEscolaridade}"/>
-					</p:selectOneMenu>
-					<div class="margin_bottom_10"></div>
-					
-					<p:commandButton actionListener="#{vagaBean.buscarVagas}" ajax="false" value="Buscar" update="form_portifolio"/>
-					
-					<p:messages/>
-					
-				</h:form>
+		<p:outputPanel styleClass="contact_form">
+			
+			<h:form id="form_portifolio">
 				
-			</div>
+				<p:outputLabel value="Cargo" for="select_cargo_portifolio"/>
+				<p:selectOneMenu id="select_cargo_portifolio" value="#{vagaBean.codigoCargoConsulta}">
+					<f:selectItem itemLabel="Selecione o cargo" itemValue="#{null}"/>
+					<f:selectItems value="#{vagaBean.listaSelectCargos}"/>
+				</p:selectOneMenu>
+				<div class="margin_bottom_10"/>
+				
+				<p:outputLabel value="Escolaridade" for="escolaridade_busca"/>
+				<p:selectOneMenu id="escolaridade_busca" value="#{vagaBean.codigoEscolaridadeConsulta}">
+					<f:selectItem itemLabel="Selecione a escolaridade" itemValue="#{null}"/>
+					<f:selectItems value="#{vagaBean.listaSelectEscolaridade}"/>
+				</p:selectOneMenu>
+				<div class="margin_bottom_10"></div>
+				
+				<p:commandButton actionListener="#{vagaBean.buscarVagas}" ajax="false" value="Buscar" 
+					onclick="startAjaxStatus()" id="cmd_busca_vagas"/>
+				
+			</h:form>
 			
-			<div class="margin_bottom_10"></div>
+		</p:outputPanel>
+		
+		<p:outputPanel styleClass="margin_bottom_10"/>
+		
+		<h:form>
+			<p:dataTable value="#{vagaBean.dataModelVagas}" var="vaga" styleClass="vaga" 
+				paginator="true" rows="10" rowsPerPageTemplate="10,20,30" emptyMessage="Nenhuma vaga encontrada."
+				selectionMode="single" selection="#{vagaBean.vagaSelecionada}" rowKey="#{vaga.codigo}" 
+				rendered="#{vagaBean.exibirTabelasVagas}" lazy="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 			
-			<h:dataTable value="#{vagaBean.vagasEncontradas}" var="vaga" styleClass="vaga"
-				cellspacing="0" cellpadding="0" border="0" rowClasses="odd,even"
-				rendered="#{vagaBean.exibirVagasDisponiveis}">
-			
-				<h:column>
+				<p:ajax event="rowSelect" resetValues="true" update=":form_candidatura" 
+					listener="#{vagaBean.buscarVaga}" oncomplete="PF('detalhesVagaDialog').show()"/>
+				
+				<p:column style="width:15px">
 					<f:facet name="header">ID</f:facet>
 					<h:outputText value="#{vaga.codigo}"></h:outputText>
-				</h:column>
+				</p:column>
 				
-				<h:column>
+				<p:column>
 					<f:facet name="header">Cargo</f:facet>
 					<h:outputText value="#{vaga.cargo.nome}"></h:outputText>
-				</h:column>
+				</p:column>
 				
-				<h:column>
-					<f:facet name="header">#Vagas</f:facet>
+				<p:column style="width:30px">
+					<f:facet name="header">Vagas</f:facet>
 					<h:outputText value="#{vaga.numeroPostos}"></h:outputText>
-				</h:column>
+				</p:column>
 				
-				<h:column>
-					<f:facet name="header">Detalhes</f:facet>
-					<h:form>
-						<h:commandLink action="#{vagaBean.buscarVaga}" value="Detalhes">
-							<f:setPropertyActionListener target="#{vagaBean.codigoVagaProcurada}" value="#{vaga.codigo}"/>
-						</h:commandLink>
-					</h:form>
-				</h:column>
-				
-			</h:dataTable>
-		
-		</h:panelGroup>
-		
-		<h:panelGroup id="panel_candidatura" rendered="#{vagaBean.exibirDetalhesVaga}">
-		
-			<div class="contact_form">
+			</p:dataTable>
+			
+		</h:form>
+			
+	
+		<p:dialog widgetVar="detalhesVagaDialog" header="Candidatar à Vaga" appendTo="@(body)" resizable="false" modal="true"
+			id="dialog_detalhes_vaga">
+			
+			<p:outputPanel styleClass="contact_form" id="panel_dialog_vaga">
 			
 				<h:form id="form_candidatura">
 					
-					<h:inputHidden value="#{vagaBean.vagaRecuperada.codigo}" />
+					<h:inputHidden value="#{vagaBean.vagaSelecionada.codigo}" />
 					
 					<p:outputLabel value="Cargo" />
-					<p:inputText styleClass="input_field" value="#{vagaBean.vagaRecuperada.cargo.nome}" disabled="true" />
+					<p:inputText styleClass="input_field" value="#{vagaBean.vagaSelecionada.cargo.nome}" disabled="true" />
 					<div class="margin_bottom_10"></div>
 					
 					<p:outputLabel value="Escolaridade" />
-					<p:inputText styleClass="input_field" value="#{vagaBean.vagaRecuperada.escolaridade.descricao}" disabled="true" />
+					<p:inputText styleClass="input_field" value="#{vagaBean.vagaSelecionada.escolaridade.descricao}" disabled="true" />
 					<div class="margin_bottom_10"></div>
 					
 					<p:outputLabel value="Num. Postos" />
-					<p:inputText styleClass="input_field" value="#{vagaBean.vagaRecuperada.numeroPostos}" disabled="true" />
+					<p:inputText styleClass="input_field" value="#{vagaBean.vagaSelecionada.numeroPostos}" disabled="true" />
 					<div class="margin_bottom_10"></div>
 					
 					<p:outputLabel value="Experiência" />
-					<p:inputText styleClass="input_field" value="#{vagaBean.vagaRecuperada.mesesExperiencia} meses" disabled="true" />
+					<p:inputText styleClass="input_field" value="#{vagaBean.vagaSelecionada.mesesExperiencia} meses" disabled="true" />
 					<div class="margin_bottom_10"></div>
 					
 					<p:outputLabel value="Usuário" for="user_trab"/>
@@ -108,27 +103,21 @@
 						style="width: 60px;"/>
 					<div class="margin_bottom_10"></div>
 					
-					<p:commandButton actionListener="#{vagaBean.registrarCandidatura}" ajax="false" value="Candidatar" update="form_candidatura" />
-					<p:commandButton actionListener="#{vagaBean.cancelarCandidatura}" ajax="false" value="Cancelar" immediate="true" />
+					<!-- http://stackoverflow.com/questions/9195756/keep-pdialog-up-when-a-validation-error-occurs-after-submit -->
+					<p:commandButton actionListener="#{vagaBean.registrarCandidatura}" value="Candidatar" update="@form"
+						oncomplete="if (!args.validationFailed &amp;&amp; args.sucesso) PF('detalhesVagaDialog').hide()"/>
+			
+					<p:commandButton value="Cancelar" onclick="PF('detalhesVagaDialog').hide()" resetValues="true" 
+						update="@form" actionListener="#{vagaBean.cancelarCandidatura()}" immediate="true"/>
 					
 					<p:messages/>
 				
 				</h:form>
 				
-				<h:form id="form_descricao_cargo">
-					<p:commandButton value="Buscar Descrição do Cargo" update="texto_descricao_cargo" 
-						actionListener="#{vagaBean.buscarDescricaoCargo()}" process="@this"/>
-					<div class="margin_bottom_10"></div>
-					
-					<p:outputLabel value="Descrição"/>
-					<p:inputTextarea rows="5" cols="33" id="texto_descricao_cargo" value="#{vagaBean.descricaoCargo}"/>
-					<p:messages/>
-				</h:form>
-					
-			</div>
+			</p:outputPanel>
+			
+		</p:dialog>
 		
-		</h:panelGroup>
-
 	</ui:define>
 	
 </ui:composition>
